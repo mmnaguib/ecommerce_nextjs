@@ -1,5 +1,5 @@
 "use client";
-import useTheme from "@/useTheme";
+import useTheme from "@/utils/useTheme";
 import { Moon, Sun } from "lucide-react";
 
 const ThemeSwitcher = () => {

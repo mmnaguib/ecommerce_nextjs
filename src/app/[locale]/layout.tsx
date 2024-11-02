@@ -5,6 +5,13 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Header from "@/components/Header";
 import "@/app/[locale]/globals.css";
+import Footer from "@/components/Footer";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Tia Store",
+  description: "e-commerce App",
+};
 
 export default async function RootLayout({
   children,
@@ -30,10 +37,11 @@ export default async function RootLayout({
           <link rel="stylesheet" href="/styles/rtl.css" />
         )}
       </head>
-      <body className="h-screen bg-white text-black dark:bg-black dark:text-white">
+      <body className="min-h-screen flex flex-col bg-white text-black dark:bg-black dark:text-white">
         <NextIntlClientProvider messages={messages}>
           <Header />
-          <div className="p-10">{children}</div>
+          <main className="container mx-auto flex-grow">{children}</main>
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>
