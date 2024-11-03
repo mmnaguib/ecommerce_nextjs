@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import bannerImage from "@/../public/images/logo.webp";
+import bannerImage from "@/../public/images/banner.png";
 const Banner = () => {
   return (
     <div className="relative bg-gradient-to-r from-sky-500 to-sky-700 mb-8">
