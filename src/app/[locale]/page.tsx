@@ -1,9 +1,9 @@
 import Banner from "@/components/Banner";
 import HomeProducts from "@/components/HomeProducts";
-import { useTranslations } from "next-intl";
+// import { useTranslations } from "next-intl";
 
 export default function HomePage() {
-  const t = useTranslations();
+  // const t = useTranslations();
   return (
     <>
       <Banner />

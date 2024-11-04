@@ -1,27 +1,27 @@
-import { JsonValue } from "@prisma/client/runtime/library";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IProduct {
   id: string;
   name: string;
   description?: string | null;
   price: number;
-  brand: string;
-  category: string;
-  inStock: boolean;
-  images: {
-    color: string;
-    colorCode: string;
-    image: string;
-  }[];
-  reviews?: any[];
-  createdAt?: Date | null;
-  updatedAt?: Date | null;
+  categoryId: string;
+  stock: number;
+  images: Image[] | any;
+  reviews: IReview[] | any;
+  createdAt?: Date | string | null;
 }
 
 export interface Image {
   color: string;
   colorCode: string;
   image: string;
+}
+
+export interface IReview {
+  useId: string;
+  rating: number;
+  comment: string;
+  createAt?: Date | string | null;
 }
 
 export interface IUser {

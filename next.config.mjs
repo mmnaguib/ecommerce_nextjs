@@ -3,16 +3,10 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig = {
-    experimental: {
+  experimental: {
     serverActions: true,
-  },images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'encrypted-tbn0.gstatic.com',
-        pathname: '/images/**',
-      },
-    ],
-  },};
+  },
+  images: { domains: ["example.com"] },
+};
 
 export default withNextIntl(nextConfig);
