@@ -1,6 +1,7 @@
-import React from "react";
+'use client'
+import React, { useState } from "react";
 import { getAllProducts } from "../../../../../actions/productsActions";
-import { IProduct, IReview } from "@/interfaces";
+import { ICartProduct, IProduct, IReview } from "@/interfaces";
 import RatingStar from "@/components/RatingStar";
 
 const ProductPage = async ({ params }: { params: { id: string } }) => {
@@ -11,6 +12,16 @@ const ProductPage = async ({ params }: { params: { id: string } }) => {
       (acc: number, item: IReview) => item.rating + acc,
       0
     ) / (product?.reviews.length ? product?.reviews.length : 1);
+    const [cartProduct, setCartProduct] = useState<ICartProduct>({
+      id: product?.id!,
+      name: product?.name!,
+      stock: product?.stock!,
+      description: product?.description,
+      categoryId: product?.categoryId!,
+      price: product?.price!,
+      images: product?.images[0],
+      quantity: 1,
+    })
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">

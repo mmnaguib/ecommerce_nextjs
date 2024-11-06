@@ -24,6 +24,17 @@ export interface IReview {
   createAt?: Date | string | null;
 }
 
+export interface ICartProduct {
+  id: string;
+  name: string;
+  description?: string | null;
+  price: number;
+  categoryId: string;
+  stock: number;
+  images: Image;
+  quantity: number
+}
+
 export interface IUser {
   id: string;
   name: string;
