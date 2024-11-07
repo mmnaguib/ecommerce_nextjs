@@ -1,7 +1,7 @@
 import React from "react";
 import { getAllProducts } from "../../actions/productsActions";
 import { IProduct } from "@/interfaces";
-import ProductCard from "./ProductCard";
+import ProductCard from "./product/ProductCard";
 
 const HomeProducts = async () => {
   const products: IProduct[] = await getAllProducts();

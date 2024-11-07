@@ -6,12 +6,12 @@ export interface IProduct {
   price: number;
   categoryId: string;
   stock: number;
-  images: Image[] | any;
+  images: ImageProps[] | any;
   reviews: IReview[] | any;
   createdAt?: Date | string | null;
 }
 
-export interface Image {
+export interface ImageProps {
   color: string;
   colorCode: string;
   image: string;
@@ -24,14 +24,14 @@ export interface IReview {
   createAt?: Date | string | null;
 }
 
-export interface ICartProduct {
+export interface ICartItem {
   id: string;
   name: string;
   description?: string | null;
   price: number;
   categoryId: string;
   stock: number;
-  images: Image;
+  image: ImageProps;
   quantity: number
 }
 
@@ -86,13 +86,3 @@ export interface ICart {
   updatedAt?: Date | null;
 }
 
-export interface ICartItem {
-  id: string;
-  cartId: string;
-  cart?: ICart;
-  productId: string;
-  product?: IProduct;
-  quantity: number;
-  createdAt?: Date | null;
-  updatedAt?: Date | null;
-}

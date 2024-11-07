@@ -3,9 +3,9 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import Header from "@/components/Header";
+import Header from "@/components/global/Header";
 import "@/app/[locale]/globals.css";
-import Footer from "@/components/Footer";
+import Footer from "@/components/global/Footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

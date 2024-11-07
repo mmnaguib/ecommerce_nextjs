@@ -3,7 +3,7 @@ import { formatPrice } from "@/utils/formatMony";
 import { truncateTxt } from "@/utils/truncateTxt";
 import Image from "next/image";
 import React from "react";
-import RatingStar from "./RatingStar";
+import RatingStar from "../global/RatingStar";
 import Link from "next/link";
 import { useLocale } from "next-intl";
 
