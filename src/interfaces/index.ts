@@ -18,10 +18,12 @@ export interface ImageProps {
 }
 
 export interface IReview {
+  id: string;
   useId: string;
   rating: number;
   comment: string;
   createAt?: Date | string | null;
+  avatar: string;
 }
 
 export interface ICartItem {
@@ -32,7 +34,7 @@ export interface ICartItem {
   categoryId: string;
   stock: number;
   image: ImageProps;
-  quantity: number
+  quantity: number;
 }
 
 export interface IUser {
@@ -85,4 +87,3 @@ export interface ICart {
   createdAt?: Date | null;
   updatedAt?: Date | null;
 }
-

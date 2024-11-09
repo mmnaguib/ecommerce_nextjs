@@ -12,6 +12,7 @@
     "@prisma/client": "^5.21.1",
     "ecommerce_": "file:",
     "lucide-react": "^0.454.0",
+    "moment": "^2.30.1",
     "next": "14.2.16",
     "next-intl": "^3.24.0",
     "react": "^18",
