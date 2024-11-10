@@ -34,7 +34,7 @@ const RatingList = ({ product }: IProps) => {
           </div>
           <div className="mt-2">
             <RatingStar rating={review.rating} />
-            <div className="ml-2">{review.comment}</div>
+            <div className="mt-2">{review.comment}</div>
             <hr className="mt-4 mb-4" />
           </div>
         </div>

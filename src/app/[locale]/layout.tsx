@@ -7,6 +7,7 @@ import Header from "@/components/global/Header";
 import "@/app/[locale]/globals.css";
 import Footer from "@/components/global/Footer";
 import type { Metadata } from "next";
+import CartProvider from "@/providers/CartProvider";
 
 export const metadata: Metadata = {
   title: "Tia Store",
@@ -39,9 +40,11 @@ export default async function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col bg-white text-black dark:bg-black dark:text-white">
         <NextIntlClientProvider messages={messages}>
-          <Header />
-          <main className="container mx-auto flex-grow">{children}</main>
-          <Footer />
+          <CartProvider>
+            <Header />
+            <main className="container mx-auto flex-grow">{children}</main>
+            <Footer />
+          </CartProvider>
         </NextIntlClientProvider>
       </body>
     </html>
