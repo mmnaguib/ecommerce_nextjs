@@ -1,9 +1,12 @@
-import { createContext, ReactNode, useContext, useState } from "react"
+import { ICartItem } from "@/interfaces";
+import { createContext, ReactNode, useCallback, useContext, useState } from "react"
 
 
 
 type cartContextType = {
-    cartTotalQty: number
+    cartTotalQty: number;
+    cartItems: ICartItem[] | null;
+    handleAddToCart: (product: ICartItem | null) => void
 }
 
 interface Props {
@@ -13,7 +16,23 @@ export const CartContext = createContext<cartContextType | null>(null);
 
 export const CartContextProvider = (props: Props) => {
     const [cartTotalQty, setCartTotalQty] = useState(0);
-    const value = {cartTotalQty}
+    const [cartItems, setCartItems] = useState<ICartItem[] | null>(null);
+    const handleAddToCart = useCallback((product: ICartItem | null)=>{
+        if (product === null) return;
+        setCartItems((prev) => {
+            let updatedCart;
+            if(prev){
+                updatedCart = {...prev,product}
+            }else{
+                updatedCart = [product]
+            }
+
+            return updatedCart
+        })
+    },[])
+    
+
+    const value = {cartTotalQty,cartItems,handleAddToCart}
     return <CartContext.Provider value={value} {...props} />
 };
 

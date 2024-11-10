@@ -9,8 +9,10 @@ import SetQuantity from "@/components/product/SetQauntity";
 import Button from "@/components/global/Button";
 import ProductImages from "@/components/product/ProductImages";
 import RatingList from "@/components/product/RatingList";
+import { useCart } from "@/hooks/useCart";
 
 const ProductPage = ({ params }: { params: { id: string } }) => {
+  const {handleAddToCart, cartItems} = useCart();
   const [cartItem, setCartItem] = useState<ICartItem | null>(null);
   const [product, setProduct] = useState<IProduct | undefined>(undefined);
   const [rateAverage, setRateAverage] = useState<number>(0);
@@ -40,6 +42,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
         });
       }
     };
+    
 
     fetchProduct();
   }, [params.id]);
@@ -82,7 +85,8 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
       <Loading />
     );
   }
-
+  
+  console.log('cart' + cartItems)
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -116,7 +120,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
           </div>
           <hr className="w-[30%] my-2" />
           <div className="max-w-[300px]">
-            <Button label="Add To Cart" onClick={()=>console.log('logs')}/>
+            <Button label="Add To Cart" onClick={()=> handleAddToCart(cartItem)}/>
           </div>
         </div>
       </div>
