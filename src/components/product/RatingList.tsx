@@ -14,7 +14,7 @@ const RatingList = ({ product }: IProps) => {
     <div>
       <Heading title="Reviews" />
       {product.reviews.map((review: IReview) => (
-        <div key={review.id} className="max-w-[300px]">
+        <div key={review.comment} className="max-w-[300px]">
           <div className="flex gap-2 items-center">
             <div>
               {review.avatar ? (

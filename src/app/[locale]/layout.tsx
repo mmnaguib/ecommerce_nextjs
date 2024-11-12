@@ -39,13 +39,14 @@ export default async function RootLayout({
         )}
       </head>
       <body className="min-h-screen flex flex-col bg-white text-black dark:bg-black dark:text-white">
-        <NextIntlClientProvider messages={messages}>
+        
           <CartProvider>
-            <Header />
-            <main className="container mx-auto flex-grow">{children}</main>
-            <Footer />
+            <NextIntlClientProvider messages={messages}>
+              <Header />
+              <main className="container mx-auto flex-grow">{children}</main>
+              <Footer />
+            </NextIntlClientProvider>
           </CartProvider>
-        </NextIntlClientProvider>
       </body>
     </html>
   );

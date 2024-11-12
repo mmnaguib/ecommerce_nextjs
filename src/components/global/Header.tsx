@@ -1,13 +1,12 @@
 import React from "react";
-import LangSwitcher from "./LangSwitcher";
-import ThemeSwitcher from "./ThemeSwitcher";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
-import { ShoppingBasket, User } from "lucide-react";
+import LeftSide from "./LeftSide";
 
 const Header = () => {
   const t = useTranslations();
   const locale = useLocale();
+
   return (
     <header className="flex justify-between items-center px-11 mb-10 h-12 w-full shadow-md text-green-700 dark:bg-white dark:shadow-[#eaeaea]">
       <div className="rightDiv flex items-center justify-start gap-3">
@@ -33,16 +32,7 @@ const Header = () => {
         </form>
       </div>
       <div className="leftDiv flex gap-3 items-center justify-end ">
-        <Link href={`/${locale}/cart`} className="relative">
-          <span className="absolute -top-[10px] bg-[#f03328] rounded-[50%] w-[20px] h-[20px] text-center text-[13px] text-[#fff] -left-[15px]">
-            2
-          </span>{" "}
-          <ShoppingBasket size={24} />
-        </Link>
-        <User size={24} />
-        <LangSwitcher />
-        <ThemeSwitcher />
-        {/* <UserList /> */}
+        <LeftSide />
       </div>
     </header>
   );

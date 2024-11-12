@@ -10,13 +10,19 @@ import Button from "@/components/global/Button";
 import ProductImages from "@/components/product/ProductImages";
 import RatingList from "@/components/product/RatingList";
 import { useCart } from "@/hooks/useCart";
+import { MdCheckCircle } from "react-icons/md";
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 
 const ProductPage = ({ params }: { params: { id: string } }) => {
+  const {cartTotalQty} = useCart();
   const {handleAddToCart, cartItems} = useCart();
   const [cartItem, setCartItem] = useState<ICartItem | null>(null);
   const [product, setProduct] = useState<IProduct | undefined>(undefined);
   const [rateAverage, setRateAverage] = useState<number>(0);
-
+  const router = useRouter();
+  
+  const locale = useLocale();
   useEffect(() => {
     const fetchProduct = async () => {
       const products: IProduct[] = await getAllProducts();
@@ -47,7 +53,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
     fetchProduct();
   }, [params.id]);
 
-  
+  console.log(cartTotalQty)
   const handleSetColorButton = useCallback((value: ImageProps) => {
     setCartItem((prev) => {
       if (prev) {
@@ -79,15 +85,15 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
   }, [cartItem?.quantity]);
 
 
-  console.log(cartItem)
   if (!product) {
     return (
       <Loading />
     );
   }
-  
-  console.log('cart' + cartItems)
+  const isProductInCart = cartItems?.some(item => item.id === product.id);
+
   return (
+    
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>
@@ -108,9 +114,18 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
             <span>{product.categoryId}</span>
           </div>
           <div className={product.stock ? "text-teal-400" : "text-rose-400"}>
-            {product.stock  ? "In Stock" : "Out Stock"}
+            {product.stock >= 1  ? "In Stock" : "Out Stock"}
           </div>
           <hr className="w-[30%] my-2" />
+          {isProductInCart ? <>
+          <p className="mb-2 text-slate-500 flex items-center gap-1">
+            <MdCheckCircle className="text-teal-400" size={20} />
+            <span>Product Added To Cart</span>
+          </p>
+            <div className="max-w-[300px]">
+            <Button label="View Cart" outline onClick={() => router.push(`/${locale}/cart`)}/>
+            </div>
+          </> : <>
           <div className="">
             <SetColor cartProduct={cartItem} images={product.images} handleSetColor={handleSetColorButton} />
           </div>
@@ -120,8 +135,9 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
           </div>
           <hr className="w-[30%] my-2" />
           <div className="max-w-[300px]">
-            <Button label="Add To Cart" onClick={()=> handleAddToCart(cartItem)}/>
+          <Button label="Add To Cart" onClick={() => handleAddToCart(cartItem)} />
           </div>
+          </>}
         </div>
       </div>
 

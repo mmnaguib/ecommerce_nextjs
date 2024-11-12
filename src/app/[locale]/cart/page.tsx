@@ -5,11 +5,12 @@ import Image from "next/image";
 import React from "react";
 
 const CartPage = () => {
-  const {cartItems} = useCart();
+  const {cartItems, cartTotalQty} = useCart();
   return (
     <div>
       <Heading title="Shopping Cart"/>
-      <table>
+      
+      <table style={{width:'100%'}} border={1}>
         <thead>
           <tr>
             <th>Product</th>
@@ -20,10 +21,10 @@ const CartPage = () => {
         </thead>
         <tbody>
           {cartItems?.map(item=> (
-          <tr>
-            <td><Image src={item.image.image} alt="" width={50} height={50}/>{item.name}</td>
+          <tr key={item.id}>
+            <td style={{display: 'flex',alignItems: 'center'}}><Image src={item.image.image} alt="" width={50} height={50}/>{item.name}</td>
             <td>{item.price}</td>
-            <td></td>
+            <td>{cartTotalQty}</td>
             <td>{item.price * item.quantity}</td>
           </tr>
 
