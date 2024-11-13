@@ -53,7 +53,6 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
     fetchProduct();
   }, [params.id]);
 
-  console.log(cartTotalQty)
   const handleSetColorButton = useCallback((value: ImageProps) => {
     setCartItem((prev) => {
       if (prev) {
@@ -123,7 +122,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
             <span>Product Added To Cart</span>
           </p>
             <div className="max-w-[300px]">
-            <Button label="View Cart" outline onClick={() => router.push(`/${locale}/cart`)}/>
+            <Button custom="w-full" label="View Cart" outline onClick={() => router.push(`/${locale}/cart`)}/>
             </div>
           </> : <>
           <div className="">
@@ -135,7 +134,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
           </div>
           <hr className="w-[30%] my-2" />
           <div className="max-w-[300px]">
-          <Button label="Add To Cart" onClick={() => handleAddToCart(cartItem)} />
+          <Button custom="w-full" label="Add To Cart" onClick={() => handleAddToCart(cartItem)} />
           </div>
           </>}
         </div>

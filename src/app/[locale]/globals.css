@@ -20,3 +20,8 @@
   .loading-text {
     animation: wave 1.5s ease-in-out infinite; /* مدة الحركة والتكرار */
   }
+
+  
+/* th, td {
+  border: 1px solid #000;
+} */

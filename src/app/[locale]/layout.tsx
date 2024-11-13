@@ -8,6 +8,7 @@ import "@/app/[locale]/globals.css";
 import Footer from "@/components/global/Footer";
 import type { Metadata } from "next";
 import CartProvider from "@/providers/CartProvider";
+import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
   title: "Tia Store",
@@ -46,6 +47,7 @@ export default async function RootLayout({
               <main className="container mx-auto flex-grow">{children}</main>
               <Footer />
             </NextIntlClientProvider>
+            <Toaster />
           </CartProvider>
       </body>
     </html>
