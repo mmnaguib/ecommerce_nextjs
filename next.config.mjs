@@ -4,9 +4,17 @@ const withNextIntl = createNextIntlPlugin();
 
 const nextConfig = {
   experimental: {
-    serverActions: true,
+    serverActions: {},
   },
-  images: { domains: ["example.com"] },
+  // images: {
+  //   remotePatterns: [
+  //     {
+  //       protocol: 'https',
+  //       hostname: 'encrypted-tbn2.gstatic.com',
+  //       pathname: '/images/**',
+  //     },
+  //   ],
+  // },
 };
 
 export default withNextIntl(nextConfig);

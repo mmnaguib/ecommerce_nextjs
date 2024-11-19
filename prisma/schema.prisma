@@ -18,3 +18,48 @@ model Product {
     reviews     Json?
     createdAt   String?
 }
+
+// generator client {
+//     provider = "prisma-client-js"
+// }
+
+// datasource db {
+//     provider = "mongodb"
+//     url      = env("DATABASE_URL")
+// }
+
+// model Product {
+//     id          String   @id @default(auto()) @map("_id") @db.ObjectId // MongoDB _id
+//     name        String
+//     description String
+//     price       Float
+//     stock       Int
+//     categoryId  String   @db.ObjectId
+//     category    Category @relation(fields: [categoryId], references: [id])
+//     images      Image[]
+//     reviews     Review[]
+// }
+
+// model Image {
+//     id        String  @id @default(auto()) @map("_id") @db.ObjectId
+//     color     String
+//     colorCode String
+//     image     String
+//     productId String  @db.ObjectId
+//     product   Product @relation(fields: [productId], references: [id])
+// }
+
+// model Review {
+//     id        String  @id @default(auto()) @map("_id") @db.ObjectId
+//     userId    String
+//     rating    Int
+//     comment   String
+//     productId String  @db.ObjectId
+//     product   Product @relation(fields: [productId], references: [id])
+// }
+
+// model Category {
+//     id       String    @id @default(auto()) @map("_id") @db.ObjectId
+//     name     String
+//     products Product[]
+// }

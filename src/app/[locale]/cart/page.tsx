@@ -20,6 +20,7 @@ const CartPage = () => {
     clearCart,
     handleIncreaseQty,
     handleDecreaseQty,
+    totalProductsInCart,
   } = useCart();
   const locale = useLocale();
   return (
@@ -111,7 +112,13 @@ const CartPage = () => {
             <div className="text-sm flex flex-col gap-1 items-start">
               <>
                 <div className="flex justify-between w-full text-base font-semibold">
-                  <span>SubTotal</span>
+                  <span>
+                    SubTotal for{" "}
+                    <span className="text-[#f03328]">
+                      {totalProductsInCart}
+                    </span>{" "}
+                    products
+                  </span>
                   <span>{formatPrice(cartTotalQty)}</span>
                 </div>
                 <p className="text-slate-500">
