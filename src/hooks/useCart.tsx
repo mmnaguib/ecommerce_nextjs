@@ -43,10 +43,11 @@ export const CartContextProvider = (props: Props) => {
     const cartProducts = localStorage.getItem("cart");
     if (cartProducts) {
       const cartItems: ICartItem[] = JSON.parse(cartProducts);
-      setCartItems(cartItems);
+
       const { totalQty, totalPrice } = calculateSubTotal(cartItems);
       setCartTotalQty(totalPrice);
       setTotalProductsInCart(totalQty);
+      setCartItems(cartItems);
     }
   }, []);
 
