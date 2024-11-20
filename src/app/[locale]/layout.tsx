@@ -8,7 +8,8 @@ import "@/app/[locale]/globals.css";
 import Footer from "@/components/global/Footer";
 import type { Metadata } from "next";
 import CartProvider from "@/providers/CartProvider";
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
+import { getCurrentUser } from "../../../actions/getCurrentUser";
 
 export const metadata: Metadata = {
   title: "Tia Store",
@@ -29,7 +30,6 @@ export default async function RootLayout({
   }
 
   const messages = await getMessages();
-
   return (
     <html lang={locale}>
       <head>
@@ -40,15 +40,14 @@ export default async function RootLayout({
         )}
       </head>
       <body className="min-h-screen flex flex-col bg-white text-black dark:bg-black dark:text-white">
-        
-          <CartProvider>
-            <NextIntlClientProvider messages={messages}>
-              <Header />
-              <main className="container mx-auto flex-grow">{children}</main>
-              <Footer />
-            </NextIntlClientProvider>
-            <Toaster />
-          </CartProvider>
+        <CartProvider>
+          <NextIntlClientProvider messages={messages}>
+            <Header />
+            <main className="container mx-auto flex-grow">{children}</main>
+            <Footer />
+          </NextIntlClientProvider>
+          <Toaster />
+        </CartProvider>
       </body>
     </html>
   );

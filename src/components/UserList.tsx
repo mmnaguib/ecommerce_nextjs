@@ -8,8 +8,13 @@ import LangSwitcher from "./global/LangSwitcher";
 import ThemeSwitcher from "./global/ThemeSwitcher";
 import { signOut } from "next-auth/react";
 import BackDrop from "./global/BackDrop";
+import { SafeUser } from "@/interfaces";
+import Button from "./global/Button";
 
-export default function UserList() {
+export interface IUserMenuProps {
+  currentUser: SafeUser | null | undefined;
+}
+export default function UserList(currentUser: IUserMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
@@ -47,45 +52,59 @@ export default function UserList() {
             aria-labelledby="menu-button"
           >
             <div className="p-2" role="none">
-              <Link
-                className="w-full block p-2"
-                href={`/${locale}/login`}
-                onClick={() => setIsOpen(false)}
-              >
-                Login
-              </Link>
-              <Link
-                className="w-full block p-2"
-                href={`/${locale}/register`}
-                onClick={() => setIsOpen(false)}
-              >
-                Register
-              </Link>
-              <Link
-                className="w-full block p-2"
-                href={`/${locale}/orders`}
-                onClick={() => setIsOpen(false)}
-              >
-                Your Orders
-              </Link>
-              <Link
-                className="w-full block p-2"
-                href={`/${locale}/admin-dashboard`}
-                onClick={() => setIsOpen(false)}
-              >
-                Admin Dashboard
-              </Link>
-              <Link
-                className="w-full block p-2"
-                href={`/${locale}/admin-dashboard`}
-                onClick={() => {
-                  setIsOpen(false);
-                  signOut();
-                }}
-              >
-                Sign Out
-              </Link>
-              <hr className="my-3 bg-slate-700" />
+              {currentUser ? (
+                <>
+                  <Link
+                    className="w-full block p-2"
+                    href={`/${locale}/orders`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Your Orders
+                  </Link>
+                  {currentUser?.currentUser?.role === "ADMIN" ? (
+                    <Link
+                      className="w-full block p-2"
+                      href={`/${locale}/admin-dashboard`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Admin Dashboard
+                    </Link>
+                  ) : (
+                    ""
+                  )}
+                  <hr className="my-1 bg-slate-700" />
+
+                  <Button
+                    custom="w-full block p-2"
+                    onClick={() => {
+                      setIsOpen(false);
+                      signOut({
+                        callbackUrl: "/login", // إعادة التوجيه بعد تسجيل الخروج
+                      });
+                    }}
+                    label="LogOut"
+                  />
+                </>
+              ) : (
+                <>
+                  <Link
+                    className="w-full block p-2"
+                    href={`/${locale}/login`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    className="w-full block p-2"
+                    href={`/${locale}/register`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Register
+                  </Link>{" "}
+                </>
+              )}
+
+              <hr className="my-1 bg-slate-700" />
               <div className="flex justify-between">
                 <LangSwitcher />
                 <ThemeSwitcher />

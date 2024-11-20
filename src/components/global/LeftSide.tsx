@@ -5,11 +5,13 @@ import React from "react";
 import { useCart } from "@/hooks/useCart";
 import { useLocale } from "next-intl";
 import UserList from "../UserList";
+import { getCurrentUser } from "../../../actions/getCurrentUser";
 
-const LeftSide = () => {
+const LeftSide = async () => {
   const { cartItems } = useCart();
   const locale = useLocale();
 
+  const currentUser = await getCurrentUser();
   return (
     <>
       <Link href={`/${locale}/cart`} className="relative">
@@ -18,7 +20,7 @@ const LeftSide = () => {
         </span>{" "}
         <ShoppingBasket size={24} />
       </Link>
-      <UserList />
+      <UserList currentUser={currentUser} />
     </>
   );
 };

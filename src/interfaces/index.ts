@@ -1,3 +1,5 @@
+import { User } from "@prisma/client";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IProduct {
   id: string;
@@ -42,10 +44,10 @@ export interface IUser {
   name: string;
   email: string;
   emailVerified?: Date;
-  image?: string;
-  hashedPassword?: string;
   createdAt?: Date | null;
   updatedAt?: Date | null;
+  image?: string;
+  hashedPassword?: string;
   role: Role;
   orders: IOrder[];
   cart?: ICart;
@@ -87,3 +89,12 @@ export interface ICart {
   createdAt?: Date | null;
   updatedAt?: Date | null;
 }
+
+export type SafeUser = Omit<
+  User,
+  "createdAt" | "updatedAt" | "emailVerified"
+> & {
+  emailVerified: string | null;
+  createdAt: string;
+  updatedAt: string;
+};

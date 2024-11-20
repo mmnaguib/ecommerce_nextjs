@@ -6,15 +6,16 @@ const nextConfig = {
   experimental: {
     serverActions: {},
   },
-  // images: {
-  //   remotePatterns: [
-  //     {
-  //       protocol: 'https',
-  //       hostname: 'encrypted-tbn2.gstatic.com',
-  //       pathname: '/images/**',
-  //     },
-  //   ],
-  // },
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      // تجاهل مكتبة fs على جانب العميل
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+      };
+    }
+    return config;
+  },
 };
 
 export default withNextIntl(nextConfig);

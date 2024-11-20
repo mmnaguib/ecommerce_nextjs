@@ -1,9 +1,12 @@
 import LoginForm from "@/components/auth/LoginForm";
+import { getCurrentUser } from "../../../../../actions/getCurrentUser";
 
-const LoginPage = () => {
+const LoginPage = async () => {
+  const currentUser = await getCurrentUser();
+
   return (
     <div>
-      <LoginForm />
+      <LoginForm currentUser={currentUser} />
     </div>
   );
 };

@@ -1,11 +1,13 @@
 import RegisterForm from "@/components/auth/RegisterForm";
 import Heading from "@/components/global/Heading";
 import React, { useState } from "react";
+import { getCurrentUser } from "../../../../../actions/getCurrentUser";
 
-const RegisterPage = () => {
+const RegisterPage = async () => {
+  const currentUser = await getCurrentUser();
   return (
     <div>
-      <RegisterForm />
+      <RegisterForm currentUser={currentUser} />
     </div>
   );
 };

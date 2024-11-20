@@ -32,7 +32,7 @@ model User {
     image          String?
     accounts       Account[]
     hashedPassword String
-    createAt       DateTime  @default(now())
+    createdAt      DateTime  @default(now())
     updatedAt      DateTime  @updatedAt
     role           Role      @default(USER)
 }

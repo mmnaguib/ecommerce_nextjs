@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormWrap from "../global/FormWrap";
 import Input from "../global/Input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -8,9 +8,16 @@ import Button from "../global/Button";
 import Link from "next/link";
 import { useLocale } from "next-intl";
 import { AiOutlineGoogle } from "react-icons/ai";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { IUserMenuProps } from "../UserList";
 
-const LoginForm = () => {
+const LoginForm = (currentUser: IUserMenuProps) => {
   const locale = useLocale();
+  const router = useRouter();
+
   const [isLoading, setLoading] = useState(false);
   const {
     register,
@@ -25,9 +32,31 @@ const LoginForm = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setLoading(true);
-    console.log(data);
-    setLoading(false);
+    signIn("credentials", {
+      ...data,
+      redirect: false,
+    }).then((callback) => {
+      if (callback?.ok) {
+        router.push(`/${locale}/`);
+        router.refresh();
+        toast.success("Welcome Pro");
+      }
+
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
+    });
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      router.push(`/${locale}/`);
+    }
+  }, []);
+  if (currentUser) {
+    return <p className="text-center">Logged In, Redirecting ...</p>;
+  }
+
   return (
     <div className="m-auto">
       <form onSubmit={handleSubmit(onSubmit)}>
