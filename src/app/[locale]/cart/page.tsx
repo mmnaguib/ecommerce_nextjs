@@ -94,7 +94,7 @@ const CartPage = () => {
                     />
                   </div>
                   <div className="justify-self-end">
-                    {item.price * item.quantity}
+                    {formatPrice(item.price * item.quantity)}
                   </div>
                 </div>
               ))}
