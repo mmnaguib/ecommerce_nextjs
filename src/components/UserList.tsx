@@ -10,6 +10,7 @@ import { signOut } from "next-auth/react";
 import BackDrop from "./global/BackDrop";
 import { SafeUser } from "@/interfaces";
 import Button from "./global/Button";
+import Image from "next/image";
 
 export interface IUserMenuProps {
   currentUser: SafeUser | null | undefined;
@@ -28,7 +29,16 @@ export default function UserList(currentUser: IUserMenuProps) {
           aria-expanded={isOpen}
           aria-haspopup="true"
         >
-          <User2 size={20} />
+          {currentUser.currentUser ? (
+            <Image
+              src={currentUser.currentUser.image || ""}
+              alt="user image"
+              width={30}
+              height={30}
+            />
+          ) : (
+            <User2 />
+          )}
           <svg
             className="-mr-1 ml-2 h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"
@@ -72,18 +82,6 @@ export default function UserList(currentUser: IUserMenuProps) {
                   ) : (
                     ""
                   )}
-                  <hr className="my-1 bg-slate-700" />
-
-                  <Button
-                    custom="w-full block p-2"
-                    onClick={() => {
-                      setIsOpen(false);
-                      signOut({
-                        callbackUrl: `/${locale}/`, // إعادة التوجيه بعد تسجيل الخروج
-                      });
-                    }}
-                    label="LogOut"
-                  />
                 </>
               ) : (
                 <>
@@ -107,6 +105,17 @@ export default function UserList(currentUser: IUserMenuProps) {
               <hr className="my-1 bg-slate-700" />
               <div className="flex justify-between">
                 <LangSwitcher />
+                <Button
+                  onClick={() => {
+                    setIsOpen(false);
+                    signOut({
+                      callbackUrl: `/${locale}/`, // إعادة التوجيه بعد تسجيل الخروج
+                    });
+                  }}
+                  label="LogOut"
+                  small
+                  outline
+                />
                 <ThemeSwitcher />
               </div>
             </div>
