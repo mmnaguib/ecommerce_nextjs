@@ -74,7 +74,7 @@ export default function UserList(currentUser: IUserMenuProps) {
                   {currentUser?.currentUser?.role === "ADMIN" ? (
                     <Link
                       className="w-full block p-2"
-                      href={`/${locale}/admin-dashboard`}
+                      href={`/${locale}/admin`}
                       onClick={() => setIsOpen(false)}
                     >
                       Admin Dashboard
