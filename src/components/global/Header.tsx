@@ -1,4 +1,3 @@
-// Header.tsx
 import React from "react";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
@@ -7,7 +6,6 @@ import LeftSide from "./LeftSide";
 const Header = () => {
   const t = useTranslations();
   const locale = useLocale();
-
   return (
     <header className="flex justify-between items-center px-11 mb-10 h-12 w-full shadow-md text-green-700 dark:bg-white dark:shadow-[#eaeaea]">
       <div className="rightDiv flex items-center justify-start gap-3">

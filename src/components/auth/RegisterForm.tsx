@@ -56,11 +56,11 @@ const RegisterForm = (currentUser: IUserMenuProps) => {
   };
 
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser.currentUser) {
       router.push(`/${locale}/`);
     }
   }, []);
-  if (currentUser) {
+  if (currentUser.currentUser) {
     return <p className="text-center">You are Logged In, Redirecting ...</p>;
   }
   return (

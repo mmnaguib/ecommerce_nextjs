@@ -52,7 +52,7 @@ export default function UserList(currentUser: IUserMenuProps) {
             aria-labelledby="menu-button"
           >
             <div className="p-2" role="none">
-              {currentUser ? (
+              {currentUser.currentUser ? (
                 <>
                   <Link
                     className="w-full block p-2"
@@ -79,7 +79,7 @@ export default function UserList(currentUser: IUserMenuProps) {
                     onClick={() => {
                       setIsOpen(false);
                       signOut({
-                        callbackUrl: "/login", // إعادة التوجيه بعد تسجيل الخروج
+                        callbackUrl: `/${locale}/`, // إعادة التوجيه بعد تسجيل الخروج
                       });
                     }}
                     label="LogOut"

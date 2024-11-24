@@ -23,34 +23,37 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
 
   const locale = useLocale();
+
   useEffect(() => {
-    const fetchProduct = async () => {
-      const products: IProduct[] = await getAllProducts();
-      const foundProduct = products.find((prod) => prod.id === params.id);
-      setProduct(foundProduct);
+    getAllProducts()
+      .then((products: IProduct[]) => {
+        const foundProduct = products.find((prod) => prod.id === params.id);
+        setProduct(foundProduct);
 
-      if (foundProduct) {
-        const averageRating =
-          foundProduct.reviews.reduce(
-            (acc: number, item: IReview) => item.rating + acc,
-            0
-          ) / (foundProduct.reviews.length ? foundProduct.reviews.length : 1);
-        setRateAverage(averageRating);
+        if (foundProduct) {
+          const averageRating =
+            foundProduct.reviews.reduce(
+              (acc: number, item: IReview) => item.rating + acc,
+              0
+            ) / (foundProduct.reviews.length ? foundProduct.reviews.length : 1);
 
-        setCartItem({
-          id: foundProduct.id,
-          name: foundProduct.name,
-          stock: foundProduct.stock,
-          description: foundProduct.description,
-          categoryId: foundProduct.categoryId,
-          price: foundProduct.price,
-          image: foundProduct.images[0],
-          quantity: 1,
-        });
-      }
-    };
+          setRateAverage(averageRating);
 
-    fetchProduct();
+          setCartItem({
+            id: foundProduct.id,
+            name: foundProduct.name,
+            stock: foundProduct.stock,
+            description: foundProduct.description,
+            categoryId: foundProduct.categoryId,
+            price: foundProduct.price,
+            image: foundProduct.images[0],
+            quantity: 1,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+      });
   }, [params.id]);
 
   const handleSetColorButton = useCallback(
