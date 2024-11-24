@@ -29,7 +29,7 @@ export default function UserList(currentUser: IUserMenuProps) {
           aria-expanded={isOpen}
           aria-haspopup="true"
         >
-          {currentUser.currentUser ? (
+          {currentUser.currentUser?.image ? (
             <Image
               src={currentUser.currentUser.image || ""}
               alt="user image"

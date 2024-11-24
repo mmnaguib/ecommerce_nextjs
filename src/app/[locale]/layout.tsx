@@ -43,7 +43,7 @@ export default async function RootLayout({
         <CartProvider>
           <NextIntlClientProvider messages={messages}>
             <Header />
-            <main className="container mx-auto flex-grow">{children}</main>
+            <main className="flex-grow">{children}</main>
             <Footer />
           </NextIntlClientProvider>
           <Toaster />

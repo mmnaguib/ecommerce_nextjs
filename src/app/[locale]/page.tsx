@@ -5,9 +5,9 @@ import HomeProducts from "@/components/HomeProducts";
 export default function HomePage() {
   // const t = useTranslations();
   return (
-    <>
+    <div className="container mx-auto ">
       <Banner />
       <HomeProducts />
-    </>
+    </div>
   );
 }

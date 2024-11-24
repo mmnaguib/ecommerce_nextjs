@@ -7,7 +7,7 @@ const Header = () => {
   const t = useTranslations();
   const locale = useLocale();
   return (
-    <header className="flex justify-between items-center px-11 mb-10 h-12 w-full shadow-md text-green-700 dark:bg-white dark:shadow-[#eaeaea]">
+    <header className="flex justify-between items-center px-11 h-12 w-full shadow-md text-green-700 dark:bg-white dark:shadow-[#eaeaea]">
       <div className="rightDiv flex items-center justify-start gap-3">
         <ul className="flex gap-3">
           <li>
