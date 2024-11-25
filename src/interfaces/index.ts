@@ -6,10 +6,11 @@ export interface IProduct {
   name: string;
   description?: string | null;
   price: number;
-  category: string;
+  categoryId: string;
   inStock: number;
-  images: ImageProps[] | any;
-  reviews: IReview[] | any;
+  brand: string;
+  images: ImageProps[];
+  reviews: IReview[];
   createdAt?: Date | string | null;
 }
 
@@ -33,24 +34,10 @@ export interface ICartItem {
   name: string;
   description?: string | null;
   price: number;
-  categoryId: string;
-  stock: number;
+  category: string;
+  inStock: number;
   image: ImageProps;
   quantity: number;
-}
-
-export interface IUser {
-  id: string;
-  name: string;
-  email: string;
-  emailVerified?: Date;
-  createdAt?: Date | null;
-  updatedAt?: Date | null;
-  image?: string;
-  hashedPassword?: string;
-  role: Role;
-  orders: IOrder[];
-  cart?: ICart;
 }
 
 export enum Role {
@@ -58,36 +45,16 @@ export enum Role {
   ADMIN = "ADMIN",
 }
 
-export interface IOrder {
+export interface IUser {
   id: string;
-  userId: string;
-  user?: IUser;
-  items: IOrderItem[];
-  totalAmount: number;
-  status: "Pending" | "Completed" | "Canceled";
-  createdAt?: Date | null;
-  updatedAt?: Date | null;
-}
-
-export interface IOrderItem {
-  id: string;
-  orderId: string;
-  order?: IOrder;
-  productId: string;
-  product?: IProduct;
-  quantity: number;
-  price: number;
-  createdAt?: Date | null;
-  updatedAt?: Date | null;
-}
-
-export interface ICart {
-  id: string;
-  userId: string;
-  user?: IUser;
-  items: ICartItem[];
-  createdAt?: Date | null;
-  updatedAt?: Date | null;
+  name: string;
+  email: string;
+  emailVerified?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+  image?: string;
+  hashedPassword?: string;
+  role: Role;
 }
 
 export type SafeUser = Omit<

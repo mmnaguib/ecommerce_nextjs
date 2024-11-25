@@ -21,15 +21,6 @@ model Product {
     categoryId  String?   @db.ObjectId
 }
 
-model Image {
-    id        String  @id @default(auto()) @map("_id") @db.ObjectId
-    color     String
-    colorCode String
-    image     String
-    productId String  @db.ObjectId
-    product   Product @relation(fields: [productId], references: [id])
-}
-
 model Review {
     id        String   @id @default(auto()) @map("_id") @db.ObjectId
     userId    String   @db.ObjectId
@@ -64,6 +55,7 @@ model User {
     role           Role      @default(USER)
     accounts       Account[]
     Review         Review[]
+    Order          Order[]
 }
 
 model Account {
@@ -86,4 +78,45 @@ model Account {
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([provider, providerAccountId])
+}
+
+model Order {
+    id              String      @id @default(auto()) @map("_id") @db.ObjectId
+    userId          String      @db.ObjectId
+    amount          Float
+    currency        String
+    status          String
+    delivaryStatus  String
+    createdAt       DateTime    @default(now())
+    paymentIntendId String      @unique
+    products        ICartItem[]
+    address         Address?
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+type ICartItem {
+    id          String
+    name        String
+    description String
+    price       Float
+    category    String
+    inStock     Int
+    image       Image
+    quantity    Int
+}
+
+type Image {
+    color     String
+    colorCode String
+    image     String
+}
+
+type Address {
+    city        String
+    country     String
+    line1       String
+    line2       String
+    postal_code String
+    state       String
 }

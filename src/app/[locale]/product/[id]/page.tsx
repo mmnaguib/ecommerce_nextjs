@@ -42,9 +42,9 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
           setCartItem({
             id: foundProduct.id,
             name: foundProduct.name,
-            stock: foundProduct.stock,
+            inStock: foundProduct.stock,
             description: foundProduct.description,
-            categoryId: foundProduct.categoryId,
+            category: foundProduct.categoryId,
             price: foundProduct.price,
             image: foundProduct.images[0],
             quantity: 1,
