@@ -8,15 +8,43 @@ datasource db {
 }
 
 model Product {
-    id          String  @id @default(auto()) @map("_id") @db.ObjectId
+    id          String    @id @default(auto()) @map("_id") @db.ObjectId // MongoDB _id
     name        String
-    description String?
+    description String
     price       Float
-    categoryId  String
-    stock       Int
-    images      Json
-    reviews     Json?
-    createdAt   String?
+    inStock     Int
+    brand       String
+    category    String
+    images      Image[]
+    reviews     Review[]
+    Category    Category? @relation(fields: [categoryId], references: [id])
+    categoryId  String?   @db.ObjectId
+}
+
+model Image {
+    id        String  @id @default(auto()) @map("_id") @db.ObjectId
+    color     String
+    colorCode String
+    image     String
+    productId String  @db.ObjectId
+    product   Product @relation(fields: [productId], references: [id])
+}
+
+model Review {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    userId    String   @db.ObjectId
+    productId String   @db.ObjectId
+    rating    Int
+    comment   String
+    product   Product  @relation(fields: [productId], references: [id])
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    createdAt DateTime @default(now())
+}
+
+model Category {
+    id       String    @id @default(auto()) @map("_id") @db.ObjectId
+    name     String
+    products Product[]
 }
 
 enum Role {
@@ -30,11 +58,12 @@ model User {
     email          String?   @unique
     emailVerified  DateTime?
     image          String?
-    accounts       Account[]
     hashedPassword String
     createdAt      DateTime  @default(now())
     updatedAt      DateTime  @updatedAt
     role           Role      @default(USER)
+    accounts       Account[]
+    Review         Review[]
 }
 
 model Account {
@@ -58,48 +87,3 @@ model Account {
 
     @@unique([provider, providerAccountId])
 }
-
-// generator client {
-//     provider = "prisma-client-js"
-// }
-
-// datasource db {
-//     provider = "mongodb"
-//     url      = env("DATABASE_URL")
-// }
-
-// model Product {
-//     id          String   @id @default(auto()) @map("_id") @db.ObjectId // MongoDB _id
-//     name        String
-//     description String
-//     price       Float
-//     stock       Int
-//     categoryId  String   @db.ObjectId
-//     category    Category @relation(fields: [categoryId], references: [id])
-//     images      Image[]
-//     reviews     Review[]
-// }
-
-// model Image {
-//     id        String  @id @default(auto()) @map("_id") @db.ObjectId
-//     color     String
-//     colorCode String
-//     image     String
-//     productId String  @db.ObjectId
-//     product   Product @relation(fields: [productId], references: [id])
-// }
-
-// model Review {
-//     id        String  @id @default(auto()) @map("_id") @db.ObjectId
-//     userId    String
-//     rating    Int
-//     comment   String
-//     productId String  @db.ObjectId
-//     product   Product @relation(fields: [productId], references: [id])
-// }
-
-// model Category {
-//     id       String    @id @default(auto()) @map("_id") @db.ObjectId
-//     name     String
-//     products Product[]
-// }

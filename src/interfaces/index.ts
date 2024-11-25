@@ -6,8 +6,8 @@ export interface IProduct {
   name: string;
   description?: string | null;
   price: number;
-  categoryId: string;
-  stock: number;
+  category: string;
+  inStock: number;
   images: ImageProps[] | any;
   reviews: IReview[] | any;
   createdAt?: Date | string | null;
