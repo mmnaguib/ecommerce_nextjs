@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Product {
-    id          String    @id @default(auto()) @map("_id") @db.ObjectId // MongoDB _id
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId // MongoDB _id
     name        String
     description String
     price       Float
@@ -17,8 +17,6 @@ model Product {
     category    String
     images      Image[]
     reviews     Review[]
-    Category    Category? @relation(fields: [categoryId], references: [id])
-    categoryId  String?   @db.ObjectId
 }
 
 model Review {
@@ -33,9 +31,8 @@ model Review {
 }
 
 model Category {
-    id       String    @id @default(auto()) @map("_id") @db.ObjectId
-    name     String
-    products Product[]
+    id   String @id @default(auto()) @map("_id") @db.ObjectId
+    name String
 }
 
 enum Role {

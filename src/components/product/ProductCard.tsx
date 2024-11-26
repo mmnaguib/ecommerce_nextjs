@@ -9,12 +9,12 @@ import { useLocale } from "next-intl";
 
 const ProductCard = ({ product }: { product: IProduct }) => {
   const rateAverage = product.reviews
-    ? product?.reviews?.reduce(
+    ? product.reviews.reduce(
         (acc: number, item: IReview) => item.rating + acc,
         0
       ) / (product.reviews?.length ? product.reviews?.length : 1)
     : 0;
-
+  console.log(product);
   const locale = useLocale();
   return (
     <Link href={`${locale}/product/${product.id}`}>
@@ -30,7 +30,7 @@ const ProductCard = ({ product }: { product: IProduct }) => {
           </div>
           <div className="mt-4">{truncateTxt(product.name)}</div>
           <RatingStar rating={rateAverage} />
-          <div>{product.reviews?.length + " reviews"}</div>
+          <div>{product.reviews ? product.reviews.length : 0 + " reviews"}</div>
           <div className="font-semibold">{formatPrice(product.price)}</div>
         </div>
       </div>

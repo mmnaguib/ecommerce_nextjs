@@ -96,7 +96,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
   const isProductInCart = cartItems?.some((item) => item.id === product.id);
 
   return (
-    <>
+    <div className=" container my-10 mx-auto ">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>
           <ProductImages
@@ -174,7 +174,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
         </div>
         <div className="">List</div>
       </div>
-    </>
+    </div>
   );
 };
 

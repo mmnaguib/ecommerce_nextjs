@@ -10,7 +10,7 @@ export interface IProduct {
   inStock: number;
   brand: string;
   images: ImageProps[];
-  reviews?: IReview[] | null;
+  reviews: IReview[] | null;
   createdAt?: Date | string | null;
 }
 
@@ -22,11 +22,12 @@ export interface ImageProps {
 
 export interface IReview {
   id: string;
-  useId: string;
+  userId: string;
+  productId: string;
   rating: number;
   comment: string;
   createAt?: Date | string | null;
-  avatar: string;
+  user: IUser;
 }
 
 export interface ICartItem {

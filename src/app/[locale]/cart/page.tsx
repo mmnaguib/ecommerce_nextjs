@@ -37,7 +37,7 @@ const CartPage = () => {
           </Link>
         </div>
       ) : (
-        <>
+        <div className=" container my-10 mx-auto ">
           <Heading title="Shopping Cart" center />
           <div className="grid grid-cols-5 text-xs gap-4 pb-2 mt-8 items-center">
             <div className="col-span-2 justify-self-start">Product</div>
@@ -135,7 +135,7 @@ const CartPage = () => {
               </Link>
             </div>
           </div>
-        </>
+        </div>
       )}
     </>
   );
