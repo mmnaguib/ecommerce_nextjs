@@ -31,20 +31,24 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
         setProduct(foundProduct);
 
         if (foundProduct) {
-          const averageRating =
-            foundProduct.reviews.reduce(
-              (acc: number, item: IReview) => item.rating + acc,
-              0
-            ) / (foundProduct.reviews.length ? foundProduct.reviews.length : 1);
+          const averageRating = foundProduct.reviews
+            ? foundProduct.reviews?.reduce(
+                (acc: number, item: IReview) => item.rating + acc,
+                0
+              ) /
+              (foundProduct?.reviews?.length
+                ? foundProduct?.reviews?.length
+                : 1)
+            : 0;
 
           setRateAverage(averageRating);
 
           setCartItem({
             id: foundProduct.id,
             name: foundProduct.name,
-            inStock: foundProduct.stock,
+            inStock: foundProduct.inStock,
             description: foundProduct.description,
-            category: foundProduct.categoryId,
+            category: foundProduct.category,
             price: foundProduct.price,
             image: foundProduct.images[0],
             quantity: 1,
@@ -108,15 +112,15 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
           <hr className="w-[30%] my-2" />
           <div className="flex items-center gap-2">
             <RatingStar rating={rateAverage} />
-            <div>{product.reviews.length} review</div>
+            <div>{product.reviews?.length} review</div>
           </div>
           <div className="text-justify">{product.description}</div>
           <div className="font-semibold">
             <span>Category: </span>
-            <span>{product.categoryId}</span>
+            <span>{product.category}</span>
           </div>
-          <div className={product.stock ? "text-teal-400" : "text-rose-400"}>
-            {product.stock >= 1 ? "In Stock" : "Out Stock"}
+          <div className={product.inStock ? "text-teal-400" : "text-rose-400"}>
+            {product.inStock >= 1 ? "In Stock" : "Out Stock"}
           </div>
           <hr className="w-[30%] my-2" />
           {isProductInCart ? (

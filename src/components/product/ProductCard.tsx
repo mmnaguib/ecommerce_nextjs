@@ -8,11 +8,12 @@ import Link from "next/link";
 import { useLocale } from "next-intl";
 
 const ProductCard = ({ product }: { product: IProduct }) => {
-  const rateAverage =
-    product.reviews.reduce(
-      (acc: number, item: IReview) => item.rating + acc,
-      0
-    ) / (product.reviews.length ? product.reviews.length : 1);
+  const rateAverage = product.reviews
+    ? product?.reviews?.reduce(
+        (acc: number, item: IReview) => item.rating + acc,
+        0
+      ) / (product.reviews?.length ? product.reviews?.length : 1)
+    : 0;
 
   const locale = useLocale();
   return (

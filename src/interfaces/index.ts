@@ -6,11 +6,11 @@ export interface IProduct {
   name: string;
   description?: string | null;
   price: number;
-  categoryId: string;
+  category: string;
   inStock: number;
   brand: string;
   images: ImageProps[];
-  reviews: IReview[];
+  reviews?: IReview[] | null;
   createdAt?: Date | string | null;
 }
 

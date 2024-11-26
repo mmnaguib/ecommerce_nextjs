@@ -8,6 +8,7 @@ import {
   useState,
 } from "react";
 import toast from "react-hot-toast";
+import { json } from "stream/consumers";
 
 type cartContextType = {
   cartTotalQty: number;
@@ -18,6 +19,8 @@ type cartContextType = {
   handleDecreaseQty: (product: ICartItem) => void;
   clearCart: () => void;
   totalProductsInCart: number;
+  handleSetPaymentIntend: (val: string | null) => void;
+  paymentIntend: string | null;
 };
 
 export const CartContext = createContext<cartContextType | null>(null);
@@ -30,7 +33,7 @@ export const CartContextProvider = (props: Props) => {
   const [cartTotalQty, setCartTotalQty] = useState(0);
   const [totalProductsInCart, setTotalProductsInCart] = useState(0);
   const [cartItems, setCartItems] = useState<ICartItem[]>([]);
-
+  const [paymentIntend, setPaymentIntend] = useState<string | null>(null);
   const calculateSubTotal = (cartItems: ICartItem[]) => {
     const totalQty = cartItems.reduce((acc, item) => acc + item.quantity, 0);
     const totalPrice = cartItems.reduce(
@@ -43,11 +46,13 @@ export const CartContextProvider = (props: Props) => {
     const cartProducts = localStorage.getItem("cart");
     if (cartProducts) {
       const cartItems: ICartItem[] = JSON.parse(cartProducts);
-
       const { totalQty, totalPrice } = calculateSubTotal(cartItems);
+      const tiaStoreIntend = localStorage.getItem("tiaStoreIntend");
+      const paymentIntend: string | null = JSON.parse(tiaStoreIntend!);
       setCartTotalQty(totalPrice);
       setTotalProductsInCart(totalQty);
       setCartItems(cartItems);
+      setPaymentIntend(paymentIntend);
     }
   }, []);
 
@@ -83,7 +88,7 @@ export const CartContextProvider = (props: Props) => {
 
   const handleIncreaseQty = useCallback(
     (product: ICartItem) => {
-      if (product.quantity === product.stock)
+      if (product.quantity === product.inStock)
         return toast.error("تجاوزت الحد الاقصي للبيع");
       let updatedCart;
       if (cartItems) {
@@ -136,6 +141,14 @@ export const CartContextProvider = (props: Props) => {
     localStorage.setItem("cart", JSON.stringify(null));
   }, []);
 
+  const handleSetPaymentIntend = useCallback(
+    (val: string | null) => {
+      setPaymentIntend(val);
+      localStorage.setItem("tiaStoreIntend", JSON.stringify(val));
+    },
+    [paymentIntend]
+  );
+
   const value = {
     cartTotalQty,
     clearCart,
@@ -145,6 +158,8 @@ export const CartContextProvider = (props: Props) => {
     handleIncreaseQty,
     handleDecreaseQty,
     totalProductsInCart,
+    handleSetPaymentIntend,
+    paymentIntend,
   };
 
   return <CartContext.Provider value={value} {...props} />;
