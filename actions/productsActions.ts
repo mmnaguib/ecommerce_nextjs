@@ -8,6 +8,10 @@ export const getAllProducts = async () => {
   return await prisma.product.findMany();
 };
 
+export const getAllCategories = async () => {
+  return await prisma.category.findMany();
+};
+
 // export const getProductDetails = async ({ id }: { id: string }) => {
 //   try {
 //     const product = await prisma.product.findUnique({

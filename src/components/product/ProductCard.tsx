@@ -14,7 +14,6 @@ const ProductCard = ({ product }: { product: IProduct }) => {
         0
       ) / (product.reviews?.length ? product.reviews?.length : 1)
     : 0;
-  console.log(product);
   const locale = useLocale();
   return (
     <Link href={`${locale}/product/${product.id}`}>

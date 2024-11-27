@@ -10,7 +10,6 @@ export interface IProduct {
   inStock: number;
   brand: string;
   images: ImageProps[];
-  reviews: IReview[] | null;
   createdAt?: Date | string | null;
 }
 
@@ -66,3 +65,9 @@ export type SafeUser = Omit<
   createdAt: string;
   updatedAt: string;
 };
+
+export interface ICategory {
+  id: string;
+  name: string;
+  icon: string;
+}
