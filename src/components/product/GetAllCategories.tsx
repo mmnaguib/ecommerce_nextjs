@@ -4,7 +4,7 @@ import { getAllCategories } from "../../../actions/productsActions";
 interface ICategory {
   id: string;
   name: string;
-  icon: string; // assuming icon is a string, adjust based on actual type
+  icon: string;
 }
 
 const GetAllCategories = () => {
@@ -13,9 +13,9 @@ const GetAllCategories = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       const data = await getAllCategories();
-      const formattedData = data.map((category) => ({
+      const formattedData = data.map((category: ICategory) => ({
         ...category,
-        icon: category.icon || "default-icon", // provide a default icon if missing
+        icon: category.icon || "default-icon",
       }));
       setCategories(formattedData);
     };
