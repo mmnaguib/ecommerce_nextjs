@@ -33,7 +33,6 @@ model Review {
 model Category {
     id   String @id @default(auto()) @map("_id") @db.ObjectId
     name String
-    icon String
 }
 
 enum Role {

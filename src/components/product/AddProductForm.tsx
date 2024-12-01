@@ -1,12 +1,18 @@
 "use client";
 import { FieldValues, useForm } from "react-hook-form";
-import FormWrap from "../global/FormWrap";
 import Heading from "../global/Heading";
 import Input from "../global/Input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TextArea from "../global/Textarea";
 import CheckBox from "../global/CheckBox";
-import GetAllCategories from "./GetAllCategories";
+import { ICategory } from "@/interfaces";
+import { getAllCategories } from "../../../actions/productsActions";
+import CategoryInput from "../global/CategoryInput";
+import { AiFillHome, AiFillPhone, AiOutlineMail } from "react-icons/ai";
+import { IconType } from "react-icons";
+import { FaTshirt } from "react-icons/fa";
+import { GiUnderwearShorts } from "react-icons/gi";
+import { colors } from "@/utils/Colors";
 
 const AddProductForm = () => {
   const {
@@ -29,6 +35,23 @@ const AddProductForm = () => {
     },
   });
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState<ICategory[]>([]);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const data = await getAllCategories();
+      setCategories(data);
+    };
+    fetchCategories();
+  }, []);
+
+  const category = watch("category");
+  const setCustomValue = (id: string, value: any) => {
+    setValue(id, value, {
+      shouldValidate: true,
+      shouldDirty: true,
+      shouldTouch: true,
+    });
+  };
   const onSubmit = (data: any) => {
     console.log(data);
   };
@@ -78,7 +101,33 @@ const AddProductForm = () => {
       />
       <div className="w-full font-medium">
         <div className="mb-2 font-semibold">Select a Category</div>
-        <GetAllCategories />
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-[50vh] overflow-y-auto">
+          {categories.map((item) => {
+            if (item.name == "All") {
+              return null;
+            }
+            return (
+              <div key={item.id} className="col-span">
+                <CategoryInput
+                  key={item.id}
+                  label={item.name}
+                  onClick={(category) => setCustomValue("category", category)}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="flex flex-col w-full flex-wrap gap-4">
+        <div className="font-bold">
+          Select The available Colors and Upload Their Images
+        </div>
+        <div className="text-sm">You must upload an image For Each Color</div>
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        {colors.map((item, index) => {
+          return <></>;
+        })}
       </div>
     </form>
   );

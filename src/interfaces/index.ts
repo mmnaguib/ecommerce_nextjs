@@ -1,4 +1,5 @@
 import { User } from "@prisma/client";
+import { IconType } from "react-icons";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IProduct {
@@ -69,5 +70,16 @@ export type SafeUser = Omit<
 export interface ICategory {
   id: string;
   name: string;
-  icon: string;
 }
+
+export type ImageType = {
+  color: string;
+  colorCode: string;
+  image: File | null;
+};
+
+export type UploadedImageType = {
+  color: string;
+  colorCode: string;
+  image: string;
+};
