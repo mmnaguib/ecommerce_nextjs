@@ -14,9 +14,24 @@ const SelectImage = ({ item, handleFileChange }: SelectImageProps) => {
       handleFileChange(acceptedFiles[0]);
     }
   }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: { "image/*": [".jpeg", ".png"] },
+  });
 
-  return <div>SelectImage</div>;
+  return (
+    <div
+      {...getRootProps()}
+      className="border-2 border-slate-400 p-2 border-dashed cursor-pointer text-sm font-normal text-slate-400 flex items-center justify-center"
+    >
+      <input {...getInputProps()} />
+      {isDragActive ? (
+        <p>Drop the files here ...</p>
+      ) : (
+        <p>{item?.color} Images</p>
+      )}
+    </div>
+  );
 };
 
 export default SelectImage;

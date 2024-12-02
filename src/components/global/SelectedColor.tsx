@@ -1,6 +1,8 @@
 "use client";
 import { ImageType } from "@/interfaces";
 import { useCallback, useEffect, useState } from "react";
+import SelectImage from "./SelectImage";
+import Button from "./Button";
 
 interface SelectedImageProps {
   item: ImageType;
@@ -52,7 +54,28 @@ const SelectedColor = ({
         </label>
       </div>
       <>
-        {isSelected && !file && <div className="col-span-2 text-center"></div>}
+        {isSelected && !file && (
+          <div className="col-span-2 text-center">
+            {<SelectImage item={item} handleFileChange={handleFileChange} />}
+          </div>
+        )}
+
+        {file && (
+          <div className="flex flex-row gap-2 text-sm col-span-2 items-center justify-between">
+            <p>{file.name}</p>
+            <div className="w-70px">
+              <Button
+                label="Cancel"
+                small
+                outline
+                onClick={() => {
+                  setFile(null);
+                  removeImageToState(item);
+                }}
+              />
+            </div>
+          </div>
+        )}
       </>
     </div>
   );
